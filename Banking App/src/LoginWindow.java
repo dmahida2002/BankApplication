@@ -1,8 +1,6 @@
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.util.*;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -11,7 +9,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class LoginWindow implements ActionListener {
+public class LoginWindow extends LoginHolder implements ActionListener {
+	
+	private int One;
+	private int Two;
+	private int Three;
+	private int Four;
+	private int L;
+	private int W;
 	
 	private int attempts;
 	
@@ -20,17 +25,22 @@ public class LoginWindow implements ActionListener {
 	
 	private JFrame loginFrame;
 	private JPanel loginPanel;
+	
 	private JLabel usernameLabel;
 	private JLabel passwordLabel;
 	private JLabel bankTitle;
+	
 	private JTextField usernameInput;
 	private JTextField passwordInput;
+	
 	private JButton loginButton;
+	private JButton newAccountButton;
 	private JButton closeButton;
 	
-	private HashMap<String, String> loginStorage = new HashMap<String, String>();
-	
 	public void setFrame(int l, int w) {
+		
+		this.L = l;
+		this.W = w;
 		
 		loginPanel = new JPanel();
 		
@@ -53,16 +63,18 @@ public class LoginWindow implements ActionListener {
 		loginPanel.add(usernameInput);
 		loginPanel.add(passwordInput);
 		loginPanel.add(loginButton);
+		loginPanel.add(newAccountButton);
 		loginPanel.add(closeButton);
-		
 	}
 	
 	private void setButton() {
 		
 		loginButton = new JButton("Login");
+		newAccountButton = new JButton("+");
 		closeButton = new JButton("Exit");
 		
 		loginButton.addActionListener(this);
+		newAccountButton.addActionListener(this);
 		closeButton.addActionListener(this);
 	}
 	
@@ -80,33 +92,33 @@ public class LoginWindow implements ActionListener {
 	
 	public void setLocation(int one, int two, int three, int four) {
 		
+		this.One = one;
+		this.Two = two;
+		this.Three = three;
+		this.Four = four;
+		
 		bankTitle.setBounds((one + 90), (two - 60), (three + 100), four);
 		
 		usernameLabel.setBounds(one, two, three, four);
 		passwordLabel.setBounds(one, (two + 40), three, four);
 		
-		usernameInput.setBounds((one + 130), two, (three + 85), four);
-		passwordInput.setBounds((one + 130), (two + 40), (three + 85), four);
+		usernameInput.setBounds((one + 130), two, (three + 90), four);
+		passwordInput.setBounds((one + 130), (two + 45), (three + 90), four);
 		
 		loginButton.setBounds((one + 65), (two + 120), (three + 85), 25);
+		newAccountButton.setBounds((one + 5), (two + 120), (three - 30), 25);
 		closeButton.setBounds((one + 65), (two + 170), (three + 85), 25);
-	}
-	
-	public void addLogins(String username, String password) {
-		
-		loginStorage.put(username, password);
 	}
 	
 	public void finalizePanel() {
 		
+		attempts = 0;
 		setPanel();
 		loginFrame.setVisible(true);
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		
-		attempts += 1;
 		
 		if(closeButton.getModel().isArmed()) {
 			
@@ -118,31 +130,58 @@ public class LoginWindow implements ActionListener {
 			}
 		}
 		
+		if(newAccountButton.getModel().isArmed()) {
+			
+			System.out.println("Create new account selected");
+			
+			AccountCreation createNew = new AccountCreation();
+			
+			createNew.setFrame(L, W);
+			
+			createNew.setLocation(One, Two, Three, Four);
+			
+			createNew.finalizePanel();
+			
+			loginFrame.dispose();
+		}
+		
 		if(loginButton.getModel().isArmed()) {
+			
+			attempts += 1;
 			
 			providedUser = usernameInput.getText();
 			providedPass = passwordInput.getText();
 		
 			if(loginStorage.containsKey(providedUser) && loginStorage.containsValue(providedPass)) {
-			
+				
 				System.out.println("The login was successful\n");
-			
-				loginFrame.dispatchEvent(new WindowEvent(loginFrame, WindowEvent.WINDOW_CLOSING));
+				
+				AccountSelection select = new AccountSelection();
+				
+				select.setFrame(L, W);
+				
+				select.setLocation(One, Two, Three, Four);
+				
+				select.finalizePanel();
+				
+				loginFrame.dispose();
 			}
 		
-			else if(loginStorage.containsKey(providedUser) == true && loginStorage.containsValue(providedPass) == false) {
+			else if(LoginHolder.loginStorage.containsKey(providedUser) == true && LoginHolder.loginStorage.containsValue(providedPass) == false) {
 			
 				System.out.println("Username: Correct\nPassword: Wrong\n");
 			
 				if(attempts >= 3) {
-				
+					
+					JOptionPane.showMessageDialog(null, "\n\nToo many attempts have been made\n\n", "Login Error", JOptionPane.ERROR_MESSAGE);
+					
 					System.exit(0);
 				}
 			
 				JOptionPane.showMessageDialog(null, "\n\nYour username or password was incorrect\n\n", "Login Error", JOptionPane.ERROR_MESSAGE);
 			}
 		
-			else if(loginStorage.containsKey(providedUser) == false && loginStorage.containsValue(providedPass) == true) {
+			else if(LoginHolder.loginStorage.containsKey(providedUser) == false && LoginHolder.loginStorage.containsValue(providedPass) == true) {
 			
 				System.out.println("Username: Wrong\nPassword: Correct\n");
 			
@@ -156,7 +195,7 @@ public class LoginWindow implements ActionListener {
 				JOptionPane.showMessageDialog(null, "\n\nYour username or password was incorrect\n\n", "Login Error", JOptionPane.ERROR_MESSAGE);
 			}
 		
-			else if(loginStorage.containsKey(providedUser) == false && loginStorage.containsValue(providedPass) == false) {
+			else if(LoginHolder.loginStorage.containsKey(providedUser) == false && LoginHolder.loginStorage.containsValue(providedPass) == false) {
 			
 				System.out.println("Both inputs were incorrect\n");
 			
@@ -170,5 +209,5 @@ public class LoginWindow implements ActionListener {
 				JOptionPane.showMessageDialog(null, "\n\nYour username or password was incorrect\n\n", "Login Error", JOptionPane.ERROR_MESSAGE);
 			}
 		}
-	}//end actionPerformed
+	}
 }
