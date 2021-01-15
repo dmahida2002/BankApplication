@@ -26,6 +26,7 @@ public class LoginWindow implements ActionListener {
 	private JTextField usernameInput;
 	private JTextField passwordInput;
 	private JButton loginButton;
+	private JButton closeButton;
 	
 	private HashMap<String, String> loginStorage = new HashMap<String, String>();
 	
@@ -52,13 +53,17 @@ public class LoginWindow implements ActionListener {
 		loginPanel.add(usernameInput);
 		loginPanel.add(passwordInput);
 		loginPanel.add(loginButton);
+		loginPanel.add(closeButton);
 		
 	}
 	
 	private void setButton() {
 		
 		loginButton = new JButton("Login");
+		closeButton = new JButton("Exit");
+		
 		loginButton.addActionListener(this);
+		closeButton.addActionListener(this);
 	}
 	
 	public void setLabel(String uLabel, String pLabel, String bLabel) {
@@ -83,7 +88,8 @@ public class LoginWindow implements ActionListener {
 		usernameInput.setBounds((one + 130), two, (three + 85), four);
 		passwordInput.setBounds((one + 130), (two + 40), (three + 85), four);
 		
-		loginButton.setBounds((one + 65), (two + 130), (three + 85), 25);
+		loginButton.setBounds((one + 65), (two + 120), (three + 85), 25);
+		closeButton.setBounds((one + 65), (two + 170), (three + 85), 25);
 	}
 	
 	public void addLogins(String username, String password) {
@@ -102,50 +108,67 @@ public class LoginWindow implements ActionListener {
 		
 		attempts += 1;
 		
-		providedUser = usernameInput.getText();
-		providedPass = passwordInput.getText();
-		
-		if(loginStorage.containsKey(providedUser) && loginStorage.containsValue(providedPass)) {
+		if(closeButton.getModel().isArmed()) {
 			
-			System.out.println("The login was successful\n");
+			int result = JOptionPane.showConfirmDialog(loginFrame,"Are you sure you want to exit?", "Exit App?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 			
-			loginFrame.dispatchEvent(new WindowEvent(loginFrame, WindowEvent.WINDOW_CLOSING));
-		}
-		
-		else if(loginStorage.containsKey(providedUser) == true && loginStorage.containsValue(providedPass) == false) {
-			
-			System.out.println("Username: Correct\nPassword: Wrong\n");
-			
-			if(attempts >= 3) {
+			if(result == JOptionPane.YES_OPTION) {
 				
 				System.exit(0);
 			}
-			
-			JOptionPane.showMessageDialog(null, "\n\nYour username or password was incorrect\n\n", "Login Error", JOptionPane.ERROR_MESSAGE);
 		}
 		
-		else if(loginStorage.containsKey(providedUser) == false && loginStorage.containsValue(providedPass) == true) {
+		if(loginButton.getModel().isArmed()) {
 			
-			System.out.println("Username: Wrong\nPassword: Correct\n");
-			
-			if(attempts >= 3) {
-				
-				System.exit(0);
-			}
-			
-			JOptionPane.showMessageDialog(null, "\n\nYour username or password was incorrect\n\n", "Login Error", JOptionPane.ERROR_MESSAGE);
-		}
+			providedUser = usernameInput.getText();
+			providedPass = passwordInput.getText();
 		
-		else if(loginStorage.containsKey(providedUser) == false && loginStorage.containsValue(providedPass) == false) {
+			if(loginStorage.containsKey(providedUser) && loginStorage.containsValue(providedPass)) {
 			
-			System.out.println("Both inputs were incorrect\n");
+				System.out.println("The login was successful\n");
 			
-			if(attempts >= 3) {
-				
-				System.exit(0);
+				loginFrame.dispatchEvent(new WindowEvent(loginFrame, WindowEvent.WINDOW_CLOSING));
 			}
+		
+			else if(loginStorage.containsKey(providedUser) == true && loginStorage.containsValue(providedPass) == false) {
 			
-			JOptionPane.showMessageDialog(null, "\n\nYour username or password was incorrect\n\n", "Login Error", JOptionPane.ERROR_MESSAGE);
+				System.out.println("Username: Correct\nPassword: Wrong\n");
+			
+				if(attempts >= 3) {
+				
+					System.exit(0);
+				}
+			
+				JOptionPane.showMessageDialog(null, "\n\nYour username or password was incorrect\n\n", "Login Error", JOptionPane.ERROR_MESSAGE);
+			}
+		
+			else if(loginStorage.containsKey(providedUser) == false && loginStorage.containsValue(providedPass) == true) {
+			
+				System.out.println("Username: Wrong\nPassword: Correct\n");
+			
+				if(attempts >= 3) {
+					
+					JOptionPane.showMessageDialog(null, "\n\nToo many attempts have been made\n\n", "Login Error", JOptionPane.ERROR_MESSAGE);
+					
+					System.exit(0);
+				}
+			
+				JOptionPane.showMessageDialog(null, "\n\nYour username or password was incorrect\n\n", "Login Error", JOptionPane.ERROR_MESSAGE);
+			}
+		
+			else if(loginStorage.containsKey(providedUser) == false && loginStorage.containsValue(providedPass) == false) {
+			
+				System.out.println("Both inputs were incorrect\n");
+			
+				if(attempts >= 3) {
+					
+					JOptionPane.showMessageDialog(null, "\n\nToo many attempts have been made\n\n", "Login Error", JOptionPane.ERROR_MESSAGE);
+					
+					System.exit(0);
+				}
+			
+				JOptionPane.showMessageDialog(null, "\n\nYour username or password was incorrect\n\n", "Login Error", JOptionPane.ERROR_MESSAGE);
+			}
 		}
 	}//end actionPerformed
 }
