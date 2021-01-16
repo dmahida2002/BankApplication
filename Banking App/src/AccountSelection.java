@@ -1,3 +1,4 @@
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -37,6 +38,7 @@ public class AccountSelection implements ActionListener {
 		selectionFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		selectionFrame.add(selectionPanel);
 		selectionFrame.setLocationRelativeTo(null);
+		selectionFrame.setResizable(false);
 		
 		setLabel();
 		setButton();
@@ -70,9 +72,9 @@ public class AccountSelection implements ActionListener {
 		
 		selectMessage.setBounds(220, (two - 73), (three + 100), four);
 		
-		checkButton.setBounds(215, two, (three + 50), four);
-		saveButton.setBounds(215, (two + 55), (three + 50), four);
-		logoutButton.setBounds(215, (two + 170), (three + 50), four);
+		checkButton.setBounds((215 - 65), two, (three + 190), four);
+		saveButton.setBounds((215 - 65), (two + 55), (three + 190), four);
+		logoutButton.setBounds((215 - 65), (two + 170), (three + 190), four);
 	}
 	
 	private void setButton() {
@@ -102,10 +104,8 @@ public class AccountSelection implements ActionListener {
 				LoginWindow LW = new LoginWindow();
 				
 				LW.setFrame(L, W);
-				
 				LW.setLabel("Username: ", "Password: ", "Chase");
 				LW.setLocation(One, Two, Three, Four);
-				
 				LW.finalizePanel();
 				
 				selectionFrame.dispose();
@@ -115,6 +115,15 @@ public class AccountSelection implements ActionListener {
 		if(checkButton.getModel().isArmed()) {
 			
 			System.out.println("Checking account was selected\n");
+			
+			CheckingAccountManagement CA = new CheckingAccountManagement();
+			
+			CA.setFrame(L, W);
+			CA.finalizePanel();
+			CA.setLocation(One, Two, Three, Four);
+			
+			selectionFrame.setVisible(false);
+			selectionFrame.dispose();
 		}
 		
 		if(saveButton.getModel().isArmed()) {
