@@ -20,7 +20,7 @@ public class LoginWindow extends LoginHolder implements ActionListener {
 	
 	private int attempts;
 	
-	private String providedUser;
+	public String providedUser;
 	private String providedPass;
 	
 	private JFrame loginFrame;
@@ -49,6 +49,7 @@ public class LoginWindow extends LoginHolder implements ActionListener {
 		loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		loginFrame.add(loginPanel);
 		loginFrame.setLocationRelativeTo(null);
+		loginFrame.setResizable(false);
 		
 		setButton();
 	}
@@ -132,7 +133,7 @@ public class LoginWindow extends LoginHolder implements ActionListener {
 		
 		if(newAccountButton.getModel().isArmed()) {
 			
-			System.out.println("Create new account selected");
+			System.out.println("Create new account selected\n");
 			
 			AccountCreation createNew = new AccountCreation();
 			
@@ -142,6 +143,7 @@ public class LoginWindow extends LoginHolder implements ActionListener {
 			
 			createNew.finalizePanel();
 			
+			loginFrame.setVisible(false);
 			loginFrame.dispose();
 		}
 		
@@ -209,5 +211,5 @@ public class LoginWindow extends LoginHolder implements ActionListener {
 				JOptionPane.showMessageDialog(null, "\n\nYour username or password was incorrect\n\n", "Login Error", JOptionPane.ERROR_MESSAGE);
 			}
 		}
-	}
+	}//end actionPerformed
 }
