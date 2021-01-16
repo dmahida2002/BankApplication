@@ -10,6 +10,9 @@ public class BankManagement {
 		login.setLabel("Username: ", "Password: ", "Chase");
 		login.setLocation(150, 100, 80, 25);
 		
+		LoginHolder.addLogins("", "");
+		NameHolder.addNames("", "Daniel");
+		
 		login.finalizePanel();
 		
 	}
