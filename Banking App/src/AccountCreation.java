@@ -42,6 +42,7 @@ public class AccountCreation extends LoginHolder implements ActionListener {
 		createFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		createFrame.add(createPanel);
 		createFrame.setLocationRelativeTo(null);
+		createFrame.setResizable(false);
 		
 		setLabel();
 		setButton();
@@ -139,6 +140,8 @@ public class AccountCreation extends LoginHolder implements ActionListener {
 			if(usernameInput.getText().length() >= 5 && passwordInput.getText().length() >= 5 
 			&& usernameInput.getText() != "12345" && passwordInput.getText() != "12345"
 			&& loginStorage.containsKey(usernameInput.getText()) == false) {
+				
+				NameHolder.addNames(usernameInput.getText(), "Test");
 				
 				System.out.println("New account was created\n");
 				
