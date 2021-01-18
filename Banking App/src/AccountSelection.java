@@ -95,7 +95,7 @@ public class AccountSelection implements ActionListener {
 		
 		if(logoutButton.getModel().isArmed()) {
 			
-			int result = JOptionPane.showConfirmDialog(selectionFrame,"Are you sure you want to log out?", "Log out?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+			int result = JOptionPane.showConfirmDialog(null,"\nAre you sure you want to log out?\n\n", "Log out?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 			
 			if(result == JOptionPane.YES_OPTION) {
 				
