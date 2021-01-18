@@ -21,7 +21,7 @@ public class CheckingAccountManagement implements ActionListener {
 	private int W;
 	
 	private int changeAmount;
-	private int totalBalance = 3000;
+	private int totalBalance = 10000;
 	
 	private JFrame checkFrame;
 	private JPanel checkPanel;
@@ -94,8 +94,6 @@ public class CheckingAccountManagement implements ActionListener {
 	
 	private void setLabel() {
 		
-		LoginWindow LW = new LoginWindow();
-		
 		welcomeMessage = new JLabel("Welcome, " + NameHolder.nameStorage.get("") + "!");
 		currentBalance = new JLabel("$" + Integer.toString(totalBalance));
 		
@@ -116,8 +114,6 @@ public class CheckingAccountManagement implements ActionListener {
 		welcomeMessage.setBounds((one - 130), (two - 75), (three + 50), four);
 		accountType.setBounds((one + 160), (two - 75), (three + 50), four);
 		
-		currentBalance.setBounds((one - 55), (two + 10), (three + 145), 60);
-		
 		depositOption.setBounds((one - 80), (two + 125), (three), four);
 		withdrawOption.setBounds((one + 95), (two + 125), (three), 25);
 		
@@ -128,6 +124,21 @@ public class CheckingAccountManagement implements ActionListener {
 		completeTransactionButton.setBounds((one - 65), (two + 250), (three + 145), 31);
 		savingsButton.setBounds((one - 65), (two + 300), (three + 145), 25);
 		logoutButton.setBounds((one - 65), (two + 390), (three + 145), 25);
+		
+		if(totalBalance >= 10000) {
+			
+			currentBalance.setBounds((One - 76), (Two + 10), (Three + 1405), 60);
+		}
+		
+		else if(totalBalance <= 9999 && totalBalance >= 1000) {
+			
+			currentBalance.setBounds((One - 55), (Two + 10), (Three + 145), 60);
+		}
+		
+		else if(totalBalance <= 999 && totalBalance >= 100) {
+			
+			currentBalance.setBounds((One - 43), (Two + 10), (Three + 145), 60);
+		}
 		
 		currentBalance.setFont(new Font("Bold", 45, 75));
 	}
@@ -170,30 +181,78 @@ public class CheckingAccountManagement implements ActionListener {
 				
 				changeAmount = Integer.valueOf(changeAmountInput.getText());
 				
-				System.out.println("User deposited $" + changeAmount + "\n");
+				if(changeAmount < 0) {
+					
+					JOptionPane.showMessageDialog(null, "\nYou cannot complete a transaction below $0. Did you mean to withdraw?\n\n", "Invalid Transaction", JOptionPane.ERROR_MESSAGE);
+				}
 				
-				totalBalance += changeAmount;
+				else if(changeAmount >= 5000) {
+					
+					JOptionPane.showMessageDialog(null, "\nTo proccess a total transaction greater than $5000, please vist a branch near you.\n\n", "Large Transaction", JOptionPane.WARNING_MESSAGE);
+				}
 				
-				currentBalance = new JLabel("$" + Integer.toString(totalBalance));
+				else if((totalBalance + changeAmount) > 99999) {
+					
+					JOptionPane.showMessageDialog(null, "\nYour balance will greater than $100,000, please vist a branch near you to complete a transaction.\n\n", "Large Balance", JOptionPane.WARNING_MESSAGE);
+				}
 				
-				currentBalance.setText("$" + Integer.toString(totalBalance));
-				
-				checkFrame.repaint();
-				checkFrame.setVisible(true);
+				else {
+					
+					System.out.println("User deposited $" + changeAmount + "\n");
+					
+					totalBalance += changeAmount;
+					
+					currentBalance.setText("$" + Integer.toString(totalBalance));
+					
+					currentBalance.paintImmediately(currentBalance.getVisibleRect());
+				}
 			}
 			
 			else if(withdrawOption.isSelected()) {
 				
 				changeAmount = Integer.valueOf(changeAmountInput.getText());
 				
-				System.out.println("User withdrawed $" + changeAmount + "\n");
+				if(changeAmount < 0) {
+					
+					JOptionPane.showMessageDialog(null, "\nYou cannot complete a transaction below $0. Did you mean to deposit?\n\n", "Invalid Transaction", JOptionPane.ERROR_MESSAGE);
+				}
 				
-				totalBalance -= changeAmount;
 				
-				currentBalance.setText("$" + Integer.toString(totalBalance));
+				else if(changeAmount >= 5000) {
+					
+					JOptionPane.showMessageDialog(null, "\nTo proccess a total transaction greater than $5000, please vist a branch near you.\n\n", "Large Transaction", JOptionPane.WARNING_MESSAGE);
+				}
 				
-				checkFrame.repaint();
-				checkFrame.setVisible(true);
+				else if((totalBalance - changeAmount) < 0) {
+					
+					JOptionPane.showMessageDialog(null, "\nThis transaction has been cancelled. You have an insufficent balance to complete this transaction\n\n", "Insufficent Balance", JOptionPane.ERROR_MESSAGE);
+				}
+				
+				else {
+					
+					System.out.println("User withdrawed $" + changeAmount + "\n");
+					
+					totalBalance -= changeAmount;
+					
+					currentBalance.setText("$" + Integer.toString(totalBalance));
+					
+					currentBalance.paintImmediately(currentBalance.getVisibleRect());
+				}
+			}
+			
+			if(totalBalance >= 10000) {
+				
+				currentBalance.setBounds((One - 76), (Two + 10), (Three + 1405), 60);
+			}
+			
+			else if(totalBalance <= 9999 && totalBalance >= 1000) {
+				
+				currentBalance.setBounds((One - 55), (Two + 10), (Three + 145), 60);
+			}
+			
+			else if(totalBalance <= 999 && totalBalance >= 100) {
+				
+				currentBalance.setBounds((One - 43), (Two + 10), (Three + 145), 60);
 			}
 		}
 	}
