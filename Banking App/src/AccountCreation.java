@@ -141,9 +141,11 @@ public class AccountCreation extends LoginHolder implements ActionListener {
 			&& usernameInput.getText() != "12345" && passwordInput.getText() != "12345"
 			&& loginStorage.containsKey(usernameInput.getText()) == false) {
 				
+				System.out.println("New account was created\n");
+				
 				NameHolder.addNames(usernameInput.getText(), "Test");
 				
-				System.out.println("New account was created\n");
+				CheckAccountVolume.modifyBalance(usernameInput.getText(), 3000);
 				
 				LoginHolder.addLogins(usernameInput.getText(), passwordInput.getText());
 				
