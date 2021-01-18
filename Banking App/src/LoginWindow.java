@@ -123,7 +123,7 @@ public class LoginWindow extends LoginHolder implements ActionListener {
 		
 		if(closeButton.getModel().isArmed()) {
 			
-			int result = JOptionPane.showConfirmDialog(loginFrame,"Are you sure you want to exit?", "Exit App?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+			int result = JOptionPane.showConfirmDialog(null,"\nAre you sure you want to exit?\n\n", "Exit App?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 			
 			if(result == JOptionPane.YES_OPTION) {
 				
@@ -175,12 +175,12 @@ public class LoginWindow extends LoginHolder implements ActionListener {
 			
 				if(attempts >= 3) {
 					
-					JOptionPane.showMessageDialog(null, "\n\nToo many attempts have been made\n\n", "Login Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "\nToo many attempts have been made\n\n", "Login Error", JOptionPane.ERROR_MESSAGE);
 					
 					System.exit(0);
 				}
 			
-				JOptionPane.showMessageDialog(null, "\n\nYour username or password was incorrect\n\n", "Login Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "\nYour username or password was incorrect\n\n", "Login Error", JOptionPane.ERROR_MESSAGE);
 			}
 		
 			else if(LoginHolder.loginStorage.containsKey(providedUser) == false && LoginHolder.loginStorage.containsValue(providedPass) == true) {
@@ -189,12 +189,12 @@ public class LoginWindow extends LoginHolder implements ActionListener {
 			
 				if(attempts >= 3) {
 					
-					JOptionPane.showMessageDialog(null, "\n\nToo many attempts have been made\n\n", "Login Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "\nToo many attempts have been made\n\n", "Login Error", JOptionPane.ERROR_MESSAGE);
 					
 					System.exit(0);
 				}
 			
-				JOptionPane.showMessageDialog(null, "\n\nYour username or password was incorrect\n\n", "Login Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "\nYour username or password was incorrect\n\n", "Login Error", JOptionPane.ERROR_MESSAGE);
 			}
 		
 			else if(LoginHolder.loginStorage.containsKey(providedUser) == false && LoginHolder.loginStorage.containsValue(providedPass) == false) {
@@ -203,12 +203,12 @@ public class LoginWindow extends LoginHolder implements ActionListener {
 			
 				if(attempts >= 3) {
 					
-					JOptionPane.showMessageDialog(null, "\n\nToo many attempts have been made\n\n", "Login Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "\nToo many attempts have been made\n\n", "Login Error", JOptionPane.ERROR_MESSAGE);
 					
 					System.exit(0);
 				}
 			
-				JOptionPane.showMessageDialog(null, "\n\nYour username or password was incorrect\n\n", "Login Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "\nYour username or password was incorrect\n\n", "Login Error", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	}//end actionPerformed
