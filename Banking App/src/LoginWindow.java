@@ -158,6 +158,8 @@ public class LoginWindow extends LoginHolder implements ActionListener {
 				
 				System.out.println("The login was successful\n");
 				
+				CheckingAccountManagement.providedUser = this.providedUser;
+				
 				AccountSelection select = new AccountSelection();
 				
 				select.setFrame(L, W);
