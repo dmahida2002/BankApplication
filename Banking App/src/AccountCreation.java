@@ -129,12 +129,12 @@ public class AccountCreation extends LoginHolder implements ActionListener {
 			
 			if(usernameInput.getText().length() < 5 || passwordInput.getText().length() < 5) {
 				
-				JOptionPane.showMessageDialog(null, "\n\nPlease enter a username and password that is greater than 7 characters long\n\n", "Account Creation Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "\nPlease enter a username and password that is greater than 7 characters long\n\n", "Account Creation Error", JOptionPane.ERROR_MESSAGE);
 			}
 			
 			if(loginStorage.containsKey(usernameInput.getText()) == true) {
 				
-				JOptionPane.showMessageDialog(null, "\n\nThe username provided is taken. Please select another username\n\n", "Account Creation Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "\nThe username provided is taken. Please select another username\n\n", "Account Creation Error", JOptionPane.ERROR_MESSAGE);
 			}
 			
 			if(usernameInput.getText().length() >= 5 && passwordInput.getText().length() >= 5 
@@ -149,7 +149,7 @@ public class AccountCreation extends LoginHolder implements ActionListener {
 				
 				createFrame.setBackground(Color.DARK_GRAY);
 				
-				JOptionPane.showMessageDialog(null, "\n\nAccount Created!\n\n", "New Account", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, "\nAccount Created!\n\n", "New Account", JOptionPane.INFORMATION_MESSAGE);
 				
 				LoginWindow LW = new LoginWindow();
 				
