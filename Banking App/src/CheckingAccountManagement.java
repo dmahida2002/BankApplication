@@ -13,6 +13,10 @@ import javax.swing.JTextField;
 
 public class CheckingAccountManagement implements ActionListener {
 	
+	LoginWindow LW = new LoginWindow();
+	
+	public static String providedUser;
+	
 	private int One;
 	private int Two;
 	private int Three;
@@ -21,7 +25,7 @@ public class CheckingAccountManagement implements ActionListener {
 	private int W;
 	
 	private int changeAmount;
-	private int totalBalance = 10000;
+	private int totalBalance = CheckAccountVolume.getBalance(providedUser);
 	
 	private JFrame checkFrame;
 	private JPanel checkPanel;
@@ -160,9 +164,9 @@ public class CheckingAccountManagement implements ActionListener {
 			
 			if(result == JOptionPane.YES_OPTION) {
 				
-				System.out.println("User logged out\n");
+				CheckAccountVolume.modifyBalance(providedUser, totalBalance);
 				
-				LoginWindow LW = new LoginWindow();
+				System.out.println("User logged out\n");
 				
 				LW.setFrame(L, W);
 				
