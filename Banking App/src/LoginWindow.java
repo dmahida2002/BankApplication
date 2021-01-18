@@ -211,5 +211,5 @@ public class LoginWindow extends LoginHolder implements ActionListener {
 				JOptionPane.showMessageDialog(null, "\nYour username or password was incorrect\n\n", "Login Error", JOptionPane.ERROR_MESSAGE);
 			}
 		}
-	}//end actionPerformed
+	}
 }
