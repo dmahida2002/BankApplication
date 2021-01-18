@@ -12,6 +12,7 @@ public class BankManagement {
 		
 		LoginHolder.addLogins("", "");
 		NameHolder.addNames("", "Daniel");
+		CheckAccountVolume.modifyBalance("", 3000);
 		
 		login.finalizePanel();
 		
