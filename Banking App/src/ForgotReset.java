@@ -136,8 +136,6 @@ public class ForgotReset extends CodeWindow implements ActionListener {
 		
 		if(verifyButton.getModel().isArmed()) {
 			
-			String mastercode = CodeWindow.masterCode;
-			
 			String providedCode = codeInput.getText();
 			
 			if(providedCode.equals(masterCode) == true) {
