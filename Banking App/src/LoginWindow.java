@@ -35,6 +35,7 @@ public class LoginWindow extends LoginHolder implements ActionListener {
 	
 	private JButton loginButton;
 	private JButton newAccountButton;
+	private JButton forgotButton;
 	private JButton closeButton;
 	
 	public void setFrame(int l, int w) {
@@ -65,6 +66,7 @@ public class LoginWindow extends LoginHolder implements ActionListener {
 		loginPanel.add(passwordInput);
 		loginPanel.add(loginButton);
 		loginPanel.add(newAccountButton);
+		loginPanel.add(forgotButton);
 		loginPanel.add(closeButton);
 	}
 	
@@ -72,10 +74,12 @@ public class LoginWindow extends LoginHolder implements ActionListener {
 		
 		loginButton = new JButton("Login");
 		newAccountButton = new JButton("+");
+		forgotButton = new JButton("?");
 		closeButton = new JButton("Exit");
 		
 		loginButton.addActionListener(this);
 		newAccountButton.addActionListener(this);
+		forgotButton.addActionListener(this);
 		closeButton.addActionListener(this);
 	}
 	
@@ -108,6 +112,7 @@ public class LoginWindow extends LoginHolder implements ActionListener {
 		
 		loginButton.setBounds((one + 65), (two + 120), (three + 85), 25);
 		newAccountButton.setBounds((one + 5), (two + 120), (three - 30), 25);
+		forgotButton.setBounds((one + 238), (two + 120), (three - 30), 25);
 		closeButton.setBounds((one + 65), (two + 170), (three + 85), 25);
 	}
 	
@@ -145,6 +150,36 @@ public class LoginWindow extends LoginHolder implements ActionListener {
 			
 			loginFrame.setVisible(false);
 			loginFrame.dispose();
+		}
+		
+		if(forgotButton.getModel().isArmed()) {
+			
+			System.out.println("Forgot password selected\n");
+			
+			String forgotInput = JOptionPane.showInputDialog("Enter your username:");
+			
+			if(loginStorage.containsKey(forgotInput) == false) {
+				
+				JOptionPane.showMessageDialog(null, "\nThis user was not found.\n\n", "Unable to find user", JOptionPane.ERROR_MESSAGE);
+			}
+			
+			else if(loginStorage.containsKey(forgotInput) == true) {
+				
+				System.out.println("Input username is correct\n");
+				
+				ForgotReset FR = new ForgotReset();
+				
+				FR.user = forgotInput;
+				
+				FR.setFrame(L, W);
+				
+				FR.setLocation(One, Two, Three, Four);
+				
+				FR.finalizePanel();
+				
+				loginFrame.dispose();
+				
+			}
 		}
 		
 		if(loginButton.getModel().isArmed()) {
